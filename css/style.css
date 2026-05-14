@@ -88,9 +88,53 @@ a { text-decoration: none; color: inherit; }
   content: ''; width: 24px; height: 1px; background: var(--gold); opacity: .5;
 }
 
+/* === Promo Strip === */
+.promo-strip {
+  position: sticky; top: 0; z-index: 1002;
+  background: linear-gradient(135deg, #2D1A0E 0%, #4A2C1A 50%, #2D1A0E 100%);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  border-bottom: 2px solid rgba(201,169,110,.2);
+  box-shadow: 0 2px 16px rgba(201,169,110,.08);
+}
+.promo-strip::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(
+    90deg, transparent, transparent 40px,
+    rgba(201,169,110,.015) 40px, rgba(201,169,110,.015) 80px
+  );
+  pointer-events: none;
+}
+.promo-track {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 35s linear infinite;
+  padding: 0 16px;
+  align-items: center;
+}
+.promo-text {
+  font-size: .8rem;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.promo-sep {
+  color: rgba(201,169,110,.35);
+  margin: 0 28px;
+  font-size: .6rem;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
+}
+
 /* === Header === */
 .header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  position: fixed; top: 36px; left: 0; right: 0; z-index: 1000;
   padding: 20px 0; transition: var(--transition);
 }
 .header.scrolled {

@@ -66,4 +66,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.1 });
     aosElements.forEach(el => observer.observe(el));
   }
+
 });
