@@ -135,142 +135,83 @@
 
   <script src="js/app.js"></script>
   <script>
-    const products = [
-      {
-        id: 1,
-        name: 'Luxury Sofa Set',
-        image: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800',
-        rating: 5, reviews: 124,
-        badge: 'Limited',
-        description: 'Experience unmatched comfort with our premium Luxury Sofa Set. Upholstered in high-grade fabric with a solid wood frame, this 5-seater is designed to be the centerpiece of your living room. The plush cushioning and elegant stitching make every moment feel luxurious.',
-        features: ['Premium breathable fabric upholstery', 'Solid hardwood frame with reinforced joints', '5-seater configuration with reversible cushions', 'Removable and washable cushion covers', 'Elegant tufted backrest design']
-      },
-      {
-        id: 2,
-        name: 'Wooden Queen Bed',
-        image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800',
-        rating: 4, reviews: 98,
-        badge: '18% OFF',
-        description: 'Crafted from solid Sheesham wood, this Wooden Queen Bed combines durability with timeless design. The sturdy slatted base supports your mattress without needing a box spring, while the carved headboard adds a touch of elegance to your bedroom.',
-        features: ['Solid Sheesham wood construction', 'Queen size — fits standard queen mattresses', 'Under-bed storage space included', 'Intricately carved headboard', 'Easy tool-free assembly']
-      },
-      {
-        id: 3,
-        name: 'Dining Table 6 Chairs',
-        image: 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800',
-        rating: 5, reviews: 156,
-        badge: 'Limited',
-        description: 'Gather family and friends around this stunning Dining Table set. The tempered glass top sits on a solid wood base, offering a modern look that is easy to clean. Six matching upholstered chairs complete the set for a cohesive dining experience.',
-        features: ['Tempered glass top — scratch and heat resistant', 'Solid rubberwood legs with anti-slip pads', 'Seats 6 people comfortably', 'Upholstered chairs with padded seats', 'Easy-clean surface']
-      },
-      {
-        id: 4,
-        name: 'Sliding Wardrobe',
-        image: 'https://images.unsplash.com/photo-1597006335771-b7676fc8c2b4?w=800',
-        rating: 4, reviews: 87,
-        badge: 'New',
-        description: 'Maximize your storage space with this 3-door Sliding Wardrobe. The soft-close mechanism ensures silent operation, while the full-length mirror on the center door makes dressing convenient. Adjustable shelves and hanging rods accommodate all your clothing needs.',
-        features: ['3-door sliding mechanism with soft-close', 'Full-length mirror on center door', 'Adjustable shelves and hanging rods', 'Multiple compartments for organized storage', 'Durable engineered wood with laminate finish']
-      },
-      {
-        id: 5,
-        name: 'Office Desk',
-        image: 'https://images.unsplash.com/photo-1518455027359-f3f8164ba6bd?w=800',
-        rating: 4, reviews: 72,
-        badge: '20% OFF',
-        description: 'Boost your productivity with this spacious Office Desk. The large worktop provides ample space for your monitor, laptop, and documents. Built-in cable management keeps your workspace tidy, and the accompanying drawer unit stores your essentials.',
-        features: ['Spacious 140cm x 60cm worktop', 'Built-in cable management system', '3-drawer unit included with lock', 'Ergonomic height for comfortable working', 'Durable particle board with melamine coating']
-      },
-      {
-        id: 6,
-        name: 'Modern TV Unit',
-        image: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800',
-        rating: 4, reviews: 63,
-        badge: 'New',
-        description: 'Upgrade your entertainment area with this sleek Modern TV Unit. Designed to fit TVs up to 65 inches, it features integrated cable management and ambient LED strip lighting. Open and closed storage shelves keep your media organized and dust-free.',
-        features: ['Fits TVs up to 65 inches', 'Integrated LED strip lighting (remote controlled)', 'Cable management holes and channels', '2 open shelves + 2 closed cabinets', 'Tempered glass top shelf']
-      },
-      {
-        id: 7,
-        name: 'Reclining Sofa',
-        image: 'https://images.unsplash.com/photo-1549187774-b4e9b9c4f5a0?w=800',
-        rating: 5, reviews: 112,
-        badge: 'Limited',
-        description: 'Unwind in ultimate comfort with our Reclining Sofa. Featuring independent power reclining mechanisms, built-in USB charging ports, and premium leather upholstery, this sofa is perfect for movie nights and lazy afternoons.',
-        features: ['Power reclining with independent control', 'Built-in USB charging ports (2 per seat)', 'Premium PU leather upholstery', 'Lumbar support cushion', 'Cup holder and storage compartment in armrest']
-      },
-      {
-        id: 8,
-        name: 'Study Table',
-        image: 'https://images.unsplash.com/photo-1593062096033-9a26b09da705?w=800',
-        rating: 4, reviews: 54,
-        badge: '17% OFF',
-        description: 'Create the perfect study corner with this compact yet functional Study Table. The built-in bookshelf keeps your reference books within reach, while the smooth-gliding drawer stores stationery. Designed for small spaces without compromising on utility.',
-        features: ['Compact design — fits small spaces', 'Built-in bookshelf with 3 tiers', 'Smooth-gliding drawer for stationery', 'Built-in USB charging port', 'Includes matching study chair']
-      },
-      {
-        id: 9,
-        name: 'Coffee Table',
-        image: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=800',
-        rating: 4, reviews: 67,
-        badge: '',
-        description: 'Complete your living room with this elegant Coffee Table. The tempered glass top showcases a lower storage shelf, perfect for magazines and decor. Its minimalist design complements both modern and traditional interiors.',
-        features: ['Tempered glass top — shatter resistant', 'Lower storage shelf for magazines', 'Sturdy metal frame with powder coating', 'Easy 15-minute assembly', 'Non-slip rubber feet protect floors']
-      }
-    ];
+    let allProducts = [];
 
     function getProductId() {
-      const params = new URLSearchParams(window.location.search);
-      return parseInt(params.get('id')) || 1;
+      return parseInt(new URLSearchParams(window.location.search).get('id')) || 1;
     }
 
     function renderStars(rating) {
       let s = '';
-      for (let i = 1; i <= 5; i++) {
-        s += i <= rating ? '&#9733;' : '&#9734;';
-      }
+      for (let i = 1; i <= 5; i++) s += i <= rating ? '&#9733;' : '&#9734;';
       return s;
     }
 
-    function renderProduct(product) {
-      document.getElementById('product-name-hero').textContent = product.name;
-      document.getElementById('product-title-hero').textContent = product.name;
-      document.getElementById('product-image-main').src = product.image;
-      document.getElementById('product-image-main').alt = product.name;
-      document.getElementById('product-rating').innerHTML = renderStars(product.rating) + ' <span class="text-muted text-sm ml-1">(' + product.reviews + ' reviews)</span>';
-      document.getElementById('product-name-detail').textContent = product.name;
-      document.getElementById('product-description').textContent = product.description;
-      
+    function getBadgeClass(badge) {
+      if (!badge) return '';
+      if (badge === 'New') return 'badge-new';
+      if (badge.includes('OFF')) return 'badge-sale';
+      return 'badge-hot';
+    }
+
+    function renderProduct(p) {
+      document.getElementById('product-name-hero').textContent = p.name;
+      document.getElementById('product-title-hero').textContent = p.name;
+      document.getElementById('product-image-main').src = p.image;
+      document.getElementById('product-image-main').alt = p.name;
+      document.getElementById('product-rating').innerHTML = renderStars(p.rating) + ' <span class="text-muted text-sm ml-1">(' + p.reviews + ' reviews)</span>';
+      document.getElementById('product-name-detail').textContent = p.name;
+      document.getElementById('product-description').textContent = p.description || 'High quality furniture piece crafted by Asian Furniture BD. Contact us for customization options and delivery details.';
+
       const featuresList = document.getElementById('product-features');
       featuresList.innerHTML = '';
-      product.features.forEach(f => {
+      const feats = p.features || ['Premium quality material', 'Handcrafted with care', 'Durable and long-lasting', 'Modern design', '5 year warranty included'];
+      feats.forEach(f => {
         const li = document.createElement('li');
         li.className = 'flex items-start gap-3 text-sm text-muted';
         li.innerHTML = '<svg class="w-5 h-5 text-gold mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> ' + f;
         featuresList.appendChild(li);
       });
 
-      const msg = 'Hello! I\'m interested in ' + product.name + '. Product link: https://asianfurniturebd.com/product.html?id=' + product.id + ' Please share the price and details. Thank you!';
-      document.getElementById('product-whatsapp-btn').href = 'https://wa.me/8801706698695?text=' + encodeURIComponent(msg);
+      const waMsg = 'Hello! I\'m interested in ' + p.name + '. Product link: ' + window.location.origin + '/product.html?id=' + p.id + ' Please share the price and details. Thank you!';
+      document.getElementById('product-whatsapp-btn').href = 'https://wa.me/8801706698695?text=' + encodeURIComponent(waMsg);
     }
 
     function renderRelated(currentId) {
       const container = document.getElementById('related-products');
-      const related = products.filter(p => p.id !== currentId).slice(0, 3);
       container.innerHTML = '';
+      const related = allProducts.filter(p => p.id !== currentId).slice(0, 3);
       related.forEach(p => {
-        const div = document.createElement('div');
-        div.className = 'product-card';
-        div.innerHTML = '<div class="product-image"><img src="' + p.image.replace('w=800', 'w=600') + '" alt="' + p.name + '" loading="lazy">' + (p.badge ? '<span class="product-badge badge-' + (p.badge === 'New' ? 'new' : p.badge.includes('OFF') ? 'sale' : 'hot') + '">' + p.badge + '</span>' : '') + '</div><div class="card-body"><div class="flex items-center gap-1 text-gold text-sm mb-2">' + renderStars(p.rating) + ' <span class="text-muted text-xs ml-1">(' + p.reviews + ')</span></div><h3 class="font-semibold text-base mb-1">' + p.name + '</h3><a href="product.html?id=' + p.id + '" class="btn btn-outline btn-sm w-full justify-center">View More</a></div>';
-        container.appendChild(div);
+        const badgeClass = getBadgeClass(p.badge);
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        card.innerHTML =
+          '<div class="product-image">' +
+            '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy">' +
+            (p.badge ? '<span class="product-badge ' + badgeClass + '">' + p.badge + '</span>' : '') +
+          '</div>' +
+          '<div class="card-body">' +
+            '<div class="flex items-center gap-1 text-gold text-sm mb-2">' + renderStars(p.rating) + ' <span class="text-muted text-xs ml-1">(' + p.reviews + ')</span></div>' +
+            '<h3 class="font-semibold text-base mb-1">' + p.name + '</h3>' +
+            '<a href="product.html?id=' + p.id + '" class="btn btn-outline btn-sm w-full justify-center">View More Details</a>' +
+          '</div>';
+        container.appendChild(card);
       });
     }
 
     document.addEventListener('DOMContentLoaded', function() {
-      const id = getProductId();
-      const product = products.find(p => p.id === id) || products[0];
-      renderProduct(product);
-      renderRelated(id);
+      fetch('products.json')
+        .then(r => r.json())
+        .then(data => {
+          allProducts = data;
+          const id = getProductId();
+          const product = allProducts.find(p => p.id === id) || allProducts[0];
+          if (product) renderProduct(product);
+          renderRelated(id);
+        })
+        .catch(() => {
+          document.getElementById('product-title-hero').textContent = 'Product Not Found';
+        });
     });
   </script>
 </body>
